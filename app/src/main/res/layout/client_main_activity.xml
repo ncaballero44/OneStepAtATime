@@ -1,42 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClientMainActivity">
+    tools:context=".ClientMainActivity"
+    android:background="@android:color/white"
+    android:screenOrientation="portrait" >
 
-<!--    <TextView-->
-<!--        android:id="@+id/calendarDescription"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Save important dates with \n your therapist"-->
-<!--        android:textSize="32sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:fontFamily="Calibri"-->
-<!--        tools:ignore="MissingConstraints"-->
-<!--        tools:layout_editor_absoluteX="325dp"-->
-<!--        tools:layout_editor_absoluteY="61dp" />-->
-
-    <Button
-        android:id="@+id/calendarButton"
-        android:layout_width="325dp"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="143dp"
-        android:backgroundTint="@android:color/white"
-        android:gravity="center"
-        android:text="Calendar"
+        android:id="@+id/welcomeMessage"
+        android:text="Welcome back: \n"
         android:textColor="#000000"
-        android:textSize="36sp"
+        android:textSize="40sp"
         android:textStyle="bold"
+        android:gravity="center">
+    </TextView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonsList"
         app:layout_constraintVertical_bias="0.2"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_below="@+id/welcomeMessage"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <Button
+                android:id="@+id/calendarButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:text="Calendar"
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
 
+            <Button
+                android:id="@+id/journalButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f71414"
+                android:gravity="center"
+                android:text="Journal"
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/worksheetsButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#7f8efa"
+                android:gravity="center"
+                android:text="Worksheets"
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/notesButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8ceb34"
+                android:gravity="center"
+                android:text="Notes"
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/therapistListButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eb9234"
+                android:gravity="center"
+                android:text="Therapist List"
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/emergencyContactListButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0a912e"
+                android:gravity="center"
+                android:text="Emergency Contact List"
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
