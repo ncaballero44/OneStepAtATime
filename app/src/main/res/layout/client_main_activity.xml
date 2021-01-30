@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/welcomeMessage"
+        android:id="@+id/welcomeMessageClient"
         android:text="Welcome back: \n"
         android:textColor="#000000"
         android:textSize="40sp"
@@ -23,9 +23,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonsList"
+        android:id="@+id/buttonsListClient"
         app:layout_constraintVertical_bias="0.2"
-        android:layout_below="@+id/welcomeMessage"
+        android:layout_below="@+id/welcomeMessageClient"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         >
@@ -35,7 +35,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/calendarButton"
+                android:id="@+id/calendarButtonClient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
@@ -47,7 +47,7 @@
                 android:layout_marginBottom="10dp"/>
 
             <Button
-                android:id="@+id/journalButton"
+                android:id="@+id/journalButtonClient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#f71414"
@@ -60,7 +60,7 @@
                 android:layout_marginBottom="10dp"/>
 
             <Button
-                android:id="@+id/worksheetsButton"
+                android:id="@+id/worksheetsButtonClient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#7f8efa"
@@ -73,7 +73,7 @@
                 android:layout_marginBottom="10dp"/>
 
             <Button
-                android:id="@+id/notesButton"
+                android:id="@+id/notesButtonClient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#8ceb34"
@@ -99,7 +99,7 @@
                 android:layout_marginBottom="10dp"/>
 
             <Button
-                android:id="@+id/emergencyContactListButton"
+                android:id="@+id/emergencyContactListButtonClient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#0a912e"

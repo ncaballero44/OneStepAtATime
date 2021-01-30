@@ -14,10 +14,22 @@ public class ClientMainActivity extends AppCompatActivity
     Button therapistListButton;
     Button emergencyContactListButton;
 
+    public void initializeButtons()
+    {
+        this.calendarButton=(Button) findViewById(R.id.calendarButtonClient);
+        this.journalButton=(Button) findViewById(R.id.journalButtonClient);
+        this.worksheetsButton=(Button) findViewById(R.id.worksheetsButtonClient);
+        this.notesButton=(Button) findViewById(R.id.notesButtonClient);
+        this.therapistListButton=(Button) findViewById(R.id.therapistListButton);
+        this.emergencyContactListButton=(Button) findViewById(R.id.emergencyContactListButtonClient);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_main_activity);
+
+        initializeButtons();
     }
 }
