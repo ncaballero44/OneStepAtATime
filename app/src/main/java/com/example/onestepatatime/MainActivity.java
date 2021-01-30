@@ -12,7 +12,8 @@ public class MainActivity extends AppCompatActivity
 
     public void initializeButtons()
     {
-
+        this.clientButton=(Button) findViewById(R.id.clientButton);
+        this.therapistButton=(Button) findViewById(R.id.therapistButton);
     }
 
     @Override
@@ -20,5 +21,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initializeButtons();
     }
 }
