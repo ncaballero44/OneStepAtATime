@@ -2,6 +2,7 @@ package com.example.onestepatatime;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -9,11 +10,26 @@ public class MainActivity extends AppCompatActivity
 {
     Button clientButton;
     Button therapistButton;
+    //TODO Create a login button. Add to Main Activity xml file
 
-    public void initializeButtons()
+    private void initializeButtons()
     {
         this.clientButton=(Button) findViewById(R.id.clientButton);
         this.therapistButton=(Button) findViewById(R.id.therapistButton);
+    }
+
+    private void configureClientButton()
+    {
+        this.clientButton.setOnClickListener((view)->{
+            startActivity(new Intent(MainActivity.this, ClientMainActivity.class));
+        });
+    }
+
+    private void configureTherapistButton()
+    {
+        this.therapistButton.setOnClickListener((view)->{
+            startActivity(new Intent(MainActivity.this, TherapistMainActivity.class));
+        });
     }
 
     @Override
@@ -23,5 +39,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         initializeButtons();
+
+        configureClientButton();
+        configureTherapistButton();
     }
 }
