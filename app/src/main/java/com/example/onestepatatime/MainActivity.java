@@ -12,6 +12,18 @@ public class MainActivity extends AppCompatActivity
     Button therapistButton;
     //TODO Create a login button. Add to Main Activity xml file
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initializeButtons();
+
+        configureClientButton();
+        configureTherapistButton();
+    }
+
     private void initializeButtons()
     {
         this.clientButton=(Button) findViewById(R.id.clientButton);
@@ -32,15 +44,5 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        initializeButtons();
-
-        configureClientButton();
-        configureTherapistButton();
-    }
 }
