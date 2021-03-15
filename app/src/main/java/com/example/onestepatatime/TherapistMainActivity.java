@@ -16,11 +16,11 @@ public class TherapistMainActivity extends AppCompatActivity
 
     public void initializeButtons()
     {
-        this.calendarButton=(Button) findViewById(R.id.calendarButtonTherapist);
-        this.assessmentButton=(Button) findViewById(R.id.assessmentButton);
-        this.worksheetsButton=(Button) findViewById(R.id.worksheetsButtonTherapist);
-        this.notesButton=(Button) findViewById(R.id.notesButtonTherapist);
-        this.clientListButton=(Button) findViewById(R.id.clientListButton);
+        this.calendarButton=findViewById(R.id.calendarButtonTherapist);
+        this.assessmentButton=findViewById(R.id.assessmentButton);
+        this.worksheetsButton=findViewById(R.id.worksheetsButtonTherapist);
+        this.notesButton=findViewById(R.id.notesButtonTherapist);
+        this.clientListButton=findViewById(R.id.clientListButton);
     }
 
     @Override

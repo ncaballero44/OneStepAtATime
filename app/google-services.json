@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "879929403594",
+    "project_id": "onestepatatime-8141a",
+    "storage_bucket": "onestepatatime-8141a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879929403594:android:57461799ed227897166c33",
+        "android_client_info": {
+          "package_name": "com.example.onestepatatime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879929403594-n0t9he92iro796g66agflrbm897o4fmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjmw0vTyELKZFePzsICbwklbM4CZadmss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879929403594-n0t9he92iro796g66agflrbm897o4fmo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

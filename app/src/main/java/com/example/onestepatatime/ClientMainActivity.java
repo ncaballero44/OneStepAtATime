@@ -17,12 +17,12 @@ public class ClientMainActivity extends AppCompatActivity
 
     private void initializeButtons()
     {
-        this.calendarButton=(Button) findViewById(R.id.calendarButtonClient);
-        this.journalButton=(Button) findViewById(R.id.journalButtonClient);
-        this.worksheetsButton=(Button) findViewById(R.id.worksheetsButtonClient);
-        this.notesButton=(Button) findViewById(R.id.notesButtonClient);
-        this.therapistListButton=(Button) findViewById(R.id.therapistListButton);
-        this.emergencyContactListButton=(Button) findViewById(R.id.emergencyContactListButtonClient);
+        this.calendarButton=findViewById(R.id.calendarButtonClient);
+        this.journalButton=findViewById(R.id.journalButtonClient);
+        this.worksheetsButton=findViewById(R.id.worksheetsButtonClient);
+        this.notesButton=findViewById(R.id.notesButtonClient);
+        this.therapistListButton=findViewById(R.id.therapistListButton);
+        this.emergencyContactListButton=findViewById(R.id.emergencyContactListButtonClient);
     }
 
     @Override

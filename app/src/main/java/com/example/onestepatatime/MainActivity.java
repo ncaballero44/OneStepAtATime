@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity
 
     private void initializeButtons()
     {
-        this.clientButton=(Button) findViewById(R.id.clientButton);
-        this.therapistButton=(Button) findViewById(R.id.therapistButton);
+        this.clientButton=findViewById(R.id.clientButton);
+        this.therapistButton=findViewById(R.id.therapistButton);
     }
 
     private void configureClientButton()
