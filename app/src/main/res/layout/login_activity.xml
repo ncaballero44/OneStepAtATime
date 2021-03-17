@@ -70,6 +70,25 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp" />
 
+    <CheckBox
+        android:id="@+id/loginTherapistCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below = "@+id/loginButton"
+        android:layout_marginTop = "20dp"
+        android:text="Therapist"
+        android:textSize="35dp"
+        />
+    <CheckBox
+        android:id="@+id/loginClientCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below = "@+id/loginTherapistCheckbox"
+        android:layout_marginTop = "20dp"
+        android:text="Client"
+        android:textSize="35dp"
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

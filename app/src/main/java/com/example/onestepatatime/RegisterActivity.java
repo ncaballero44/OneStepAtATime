@@ -32,6 +32,8 @@ public class RegisterActivity extends AppCompatActivity
 
     FirebaseAuth fAuth;
 
+    Database database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,17 +60,19 @@ public class RegisterActivity extends AppCompatActivity
         this.confirmRegistrationButton=findViewById(R.id.confirmRegistrationButton);
 
         this.fAuth=FirebaseAuth.getInstance();
+
+        this.database=new Database();
     }
 
     private void configureButtons()
     {
         confirmRegistrationButton.setOnClickListener((view)->{
-            String email=this.registerEmailEntry.getText().toString();
-            String username=this.registerUsernameEntry.getText().toString();
-            String firstName=this.registerFNameEntry.getText().toString();
-            String lastName=this.registerLNameEntry.getText().toString();
-            String password=this.registerPasswordEntry.getText().toString();
-            String confirmPassword=this.registerConfirmPasswordEntry.getText().toString();
+            String email=this.registerEmailEntry.getText().toString().trim();
+            String username=this.registerUsernameEntry.getText().toString().trim();
+            String firstName=this.registerFNameEntry.getText().toString().trim();
+            String lastName=this.registerLNameEntry.getText().toString().trim();
+            String password=this.registerPasswordEntry.getText().toString().trim();
+            String confirmPassword=this.registerConfirmPasswordEntry.getText().toString().trim();
 
             boolean isTherapist=therapistCheckbox.isChecked();
             boolean isClient=clientCheckbox.isChecked();
@@ -99,18 +103,22 @@ public class RegisterActivity extends AppCompatActivity
             else
             {
                 //TODO create firebase auth
-                Toast.makeText(RegisterActivity.this, "It worked", Toast.LENGTH_SHORT).show();
+
                 fAuth.createUserWithEmailAndPassword(newUser.email, newUser.password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
-                            Toast.makeText(RegisterActivity.this, "User created", Toast.LENGTH_SHORT).show();
+                            newUser.userID=fAuth.getCurrentUser().getUid().trim();
+                            if(database.createNewUser(newUser))
+                            {
+                                Toast.makeText(RegisterActivity.this, "User created", Toast.LENGTH_SHORT).show();
+                            }
                             //TODO start client/therapist main activity with correct user
                         }
                         else
                         {
-                            Toast.makeText(RegisterActivity.this, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "An error occurred. Please try again.\nError message: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
