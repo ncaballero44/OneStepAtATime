@@ -3,6 +3,8 @@
     package="com.example.onestepatatime">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +28,8 @@
         <activity android:name=".TherapistWorksheetsActivity"></activity>
         <activity android:name=".TherapistNotesActivity"></activity>
         <activity android:name=".TherapistClientListActivity"></activity>
+
+        <activity android:name=".NotesActivity"></activity>
 
         <activity android:name=".RegisterActivity"></activity>
 

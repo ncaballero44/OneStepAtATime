@@ -2,11 +2,12 @@ package com.example.onestepatatime;
 
 import android.content.Context;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class Notes
+public class Notes implements Serializable
 {
     public long dateTime;
     public String noteTitle;
