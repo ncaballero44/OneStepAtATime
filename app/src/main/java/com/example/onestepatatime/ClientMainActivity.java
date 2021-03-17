@@ -19,9 +19,9 @@ import com.google.firebase.database.ValueEventListener;
 public class ClientMainActivity extends AppCompatActivity
 {
     Button calendarButton;
-    Button journalButton;
+//    Button journalButton;
     Button worksheetsButton;
-    Button notesButton;
+    Button notesJournalButton;
     Button therapistListButton;
     Button emergencyContactListButton;
 
@@ -36,9 +36,9 @@ public class ClientMainActivity extends AppCompatActivity
     private void initializeElements()
     {
         this.calendarButton=findViewById(R.id.calendarButtonClient);
-        this.journalButton=findViewById(R.id.journalButtonClient);
+//        this.journalButton=findViewById(R.id.journalButtonClient);
         this.worksheetsButton=findViewById(R.id.worksheetsButtonClient);
-        this.notesButton=findViewById(R.id.notesButtonClient);
+        this.notesJournalButton=findViewById(R.id.notesJournalButtonClient);
         this.therapistListButton=findViewById(R.id.therapistListButton);
         this.emergencyContactListButton=findViewById(R.id.emergencyContactListButtonClient);
 
@@ -55,15 +55,15 @@ public class ClientMainActivity extends AppCompatActivity
             startActivity(new Intent(ClientMainActivity.this, ClientCalendarActivity.class));
         });
 
-        this.journalButton.setOnClickListener((view)->{
-            startActivity(new Intent(ClientMainActivity.this, ClientJournalActivity.class));
-        });
+//        this.journalButton.setOnClickListener((view)->{
+//            startActivity(new Intent(ClientMainActivity.this, ClientJournalActivity.class));
+//        });
 
         this.worksheetsButton.setOnClickListener((view)->{
             startActivity(new Intent(ClientMainActivity.this, ClientWorksheetsActivity.class));
         });
 
-        this.notesButton.setOnClickListener((view)->{
+        this.notesJournalButton.setOnClickListener((view)->{
             startActivity(new Intent(ClientMainActivity.this, ClientNotesActivity.class));
         });
 

@@ -18,9 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 public class TherapistMainActivity extends AppCompatActivity
 {
     Button calendarButton;
-    Button assessmentButton;
+//    Button assessmentButton;
     Button worksheetsButton;
-    Button notesButton;
+    Button notesAssessmentButton;
     Button clientListButton;
 
     TextView welcomeMessage;
@@ -34,9 +34,9 @@ public class TherapistMainActivity extends AppCompatActivity
     private void initializeElements()
     {
         this.calendarButton=findViewById(R.id.calendarButtonTherapist);
-        this.assessmentButton=findViewById(R.id.assessmentButton);
+//        this.assessmentButton=findViewById(R.id.assessmentButton);
         this.worksheetsButton=findViewById(R.id.worksheetsButtonTherapist);
-        this.notesButton=findViewById(R.id.notesButtonTherapist);
+        this.notesAssessmentButton=findViewById(R.id.notesAssessmentButtonTherapist);
         this.clientListButton=findViewById(R.id.clientListButton);
 
         this.welcomeMessage=findViewById(R.id.welcomeMessageTherapist);
@@ -55,15 +55,15 @@ public class TherapistMainActivity extends AppCompatActivity
             startActivity(new Intent(TherapistMainActivity.this, TherapistCalendarActivity.class));
         });
 
-        this.assessmentButton.setOnClickListener((view)->{
-            startActivity(new Intent(TherapistMainActivity.this, TherapistAssessmentActivity.class));
-        });
+//        this.assessmentButton.setOnClickListener((view)->{
+//            startActivity(new Intent(TherapistMainActivity.this, TherapistAssessmentActivity.class));
+//        });
 
         this.worksheetsButton.setOnClickListener((view)->{
             startActivity(new Intent(TherapistMainActivity.this, TherapistWorksheetsActivity.class));
         });
 
-        this.notesButton.setOnClickListener((view)->{
+        this.notesAssessmentButton.setOnClickListener((view)->{
             startActivity(new Intent(TherapistMainActivity.this, TherapistNotesActivity.class));
         });
 

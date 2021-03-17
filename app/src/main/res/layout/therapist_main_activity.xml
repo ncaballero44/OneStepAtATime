@@ -46,18 +46,18 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp"/>
 
-            <Button
-                android:id="@+id/assessmentButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#f71414"
-                android:gravity="center"
-                android:text="Assessment"
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+<!--            <Button-->
+<!--                android:id="@+id/assessmentButton"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="#f71414"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Assessment"-->
+<!--                android:textColor="#000000"-->
+<!--                android:textSize="40sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginBottom="10dp"/>-->
 
             <Button
                 android:id="@+id/worksheetsButtonTherapist"
@@ -73,12 +73,12 @@
                 android:layout_marginBottom="10dp"/>
 
             <Button
-                android:id="@+id/notesButtonTherapist"
+                android:id="@+id/notesAssessmentButtonTherapist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#8ceb34"
                 android:gravity="center"
-                android:text="Notes"
+                android:text="Notes/Assessments"
                 android:textColor="#000000"
                 android:textSize="40sp"
                 android:textStyle="bold"
