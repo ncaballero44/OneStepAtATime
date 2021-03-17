@@ -96,6 +96,10 @@ public class LoginActivity extends AppCompatActivity
                             {
                                 startActivity(new Intent(getApplicationContext(), ClientMainActivity.class));
                             }
+                            else if(therapistCheckbox.isChecked())
+                            {
+                                startActivity(new Intent(getApplicationContext(), TherapistMainActivity.class));
+                            }
                         }
                         else
                         {
