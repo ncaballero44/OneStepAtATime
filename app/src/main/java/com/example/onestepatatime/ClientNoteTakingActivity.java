@@ -54,57 +54,63 @@ public class ClientNoteTakingActivity extends AppCompatActivity
         this.saveNotesButton.setOnClickListener((view)->{
             String notesTitle=this.notesTitle.getText().toString();
             String notesContent=this.notesContent.getText().toString();
-            this.newNote=new Notes(notesTitle,notesContent);
 
-            FirebaseStorage storage=FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-
-            String fileName=newNote.noteTitle+".txt";
-
-            FileOutputStream fileOutputStream;
-            try
+            if(notesTitle.length()==0)
             {
-                fileOutputStream=this.openFileOutput(fileName,this.MODE_PRIVATE);
-                fileOutputStream.close();
-            }catch (IOException e)
-            {
-                e.printStackTrace();
+                Toast.makeText(ClientNoteTakingActivity.this, "Please enter in a title", Toast.LENGTH_SHORT).show();
             }
-
-            File localFile=this.getFileStreamPath(fileName);
-            try
+            else
             {
-                FileWriter fileWriter=new FileWriter(localFile,false);
-                fileWriter.write(newNote.noteContents);
-                fileWriter.flush();
-                fileWriter.close();
-            }catch (Exception e)
-            {
+                this.newNote=new Notes(notesTitle,notesContent);
 
-            }
-            if(localFile.exists()) {
-                Uri fileToUpload = Uri.fromFile(localFile);
-                FirebaseAuth fAuth = FirebaseAuth.getInstance();
-                FirebaseUser currentUser = fAuth.getCurrentUser();
-                if (currentUser != null) {
-                    StorageReference notesAndJournalReference = storageRef.child("client").child(currentUser.getUid()).child("notesAndJournalEntries/" + fileToUpload.getLastPathSegment());
-                    UploadTask uploadTask = notesAndJournalReference.putFile(fileToUpload);
+                FirebaseStorage storage=FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReference();
 
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
+                String fileName=newNote.noteTitle+".txt";
 
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(ClientNoteTakingActivity.this, "File successfully saved.", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
-
+                FileOutputStream fileOutputStream;
+                try
+                {
+                    fileOutputStream=this.openFileOutput(fileName,this.MODE_PRIVATE);
+                    fileOutputStream.close();
+                }catch (IOException e)
+                {
+                    e.printStackTrace();
                 }
 
+                File localFile=this.getFileStreamPath(fileName);
+                try
+                {
+                    FileWriter fileWriter=new FileWriter(localFile,false);
+                    fileWriter.write(newNote.noteContents);
+                    fileWriter.flush();
+                    fileWriter.close();
+                }catch (Exception e)
+                {
+
+                }
+                if(localFile.exists()) {
+                    Uri fileToUpload = Uri.fromFile(localFile);
+                    FirebaseAuth fAuth = FirebaseAuth.getInstance();
+                    FirebaseUser currentUser = fAuth.getCurrentUser();
+                    if (currentUser != null) {
+                        StorageReference notesAndJournalReference = storageRef.child("client").child(currentUser.getUid()).child("notesAndJournalEntries/" + fileToUpload.getLastPathSegment());
+                        UploadTask uploadTask = notesAndJournalReference.putFile(fileToUpload);
+
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(ClientNoteTakingActivity.this, "File successfully saved.", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+                    }
+                }
             }
         });
     }
