@@ -8,11 +8,20 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -21,6 +30,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class ClientNoteTakingActivity extends AppCompatActivity
 {
@@ -66,19 +77,10 @@ public class ClientNoteTakingActivity extends AppCompatActivity
                 FirebaseStorage storage=FirebaseStorage.getInstance();
                 StorageReference storageRef = storage.getReference();
 
-                String fileName=newNote.noteTitle+".txt";
+                ClientNoteTakingUtilities noteTakingUtilities=new ClientNoteTakingUtilities();
+                noteTakingUtilities.createTextFile(this,newNote);
 
-                FileOutputStream fileOutputStream;
-                try
-                {
-                    fileOutputStream=this.openFileOutput(fileName,this.MODE_PRIVATE);
-                    fileOutputStream.close();
-                }catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-
-                File localFile=this.getFileStreamPath(fileName);
+                File localFile=this.getFileStreamPath(newNote.noteTitle+".txt");
                 try
                 {
                     FileWriter fileWriter=new FileWriter(localFile,false);
@@ -93,28 +95,52 @@ public class ClientNoteTakingActivity extends AppCompatActivity
                     Uri fileToUpload = Uri.fromFile(localFile);
                     FirebaseAuth fAuth = FirebaseAuth.getInstance();
                     FirebaseUser currentUser = fAuth.getCurrentUser();
-                    if (currentUser != null) {
+                    if (currentUser != null)
+                    {
                         StorageReference notesAndJournalReference = storageRef.child("client").child(currentUser.getUid()).child("notesAndJournalEntries/" + fileToUpload.getLastPathSegment());
                         UploadTask uploadTask = notesAndJournalReference.putFile(fileToUpload);
-
-                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                        Task<Uri> urlTask=uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                             @Override
-                            public void onFailure(@NonNull Exception e) {
-
+                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                if(!task.isSuccessful())
+                                {
+                                    throw task.getException();
+                                }
+                                return notesAndJournalReference.getDownloadUrl();
                             }
-                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                             @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Toast.makeText(ClientNoteTakingActivity.this, "File successfully saved.", Toast.LENGTH_SHORT).show();
-                                finish();
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if(task.isSuccessful())
+                                {
+                                    Uri downloadUri=task.getResult();
+                                    if(downloadUri==null)
+                                    {
+                                        Toast.makeText(ClientNoteTakingActivity.this, "downloadUri null", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else
+                                    {
+                                        String urlDownload=downloadUri.toString();
+//                                        Toast.makeText(ClientNoteTakingActivity.this, urlDownload, Toast.LENGTH_SHORT).show();
+                                        Database database=new Database();
+                                        database.sendClientFileURLToDatabase(urlDownload,currentUser.getUid(),newNote.noteTitle);
+                                        finish();
+                                    }
+                                }
                             }
                         });
+//                        String downloadURL=urlTask.getResult().toString();
+
                     }
+
+                }
+                else
+                {
+                    Toast.makeText(ClientNoteTakingActivity.this, "File was not found.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

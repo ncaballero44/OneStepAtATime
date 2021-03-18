@@ -2,67 +2,97 @@ package com.example.onestepatatime;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Environment;
-import android.os.FileUtils;
-import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
+
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-
-
+import java.util.ArrayList;
 
 public class ClientNoteTakingUtilities
 {
-    public boolean writeToLocalFile(Context context, Notes newNote)
-    {
-        FirebaseStorage storage=FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
 
+    public void createTextFile(Context context,Notes newNote)
+    {
         String fileName=newNote.noteTitle+".txt";
 
         FileOutputStream fileOutputStream;
-//            ObjectOutputStream objectOutputStream;
-
         try
         {
             fileOutputStream=context.openFileOutput(fileName,context.MODE_PRIVATE);
-//                objectOutputStream=new ObjectOutputStream(fileOutputStream);
-//                objectOutputStream.writeBytes(newNote.noteContents);
-//                objectOutputStream.close();
             fileOutputStream.close();
         }catch (IOException e)
         {
             e.printStackTrace();
         }
+    }
 
-        File localFile=context.getFileStreamPath(fileName);
-        try
+    public static ArrayList<Notes> getAllSavedNotesFromDatabaseStorage(Context context)
+    {
+        FirebaseStorage storage=FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = fAuth.getCurrentUser();
+
+        StorageReference notesAndJournalReference = storageRef.child("client").child(currentUser.getUid()).child("notesAndJournalEntries/");
+
+        ArrayList<File> fileList=new ArrayList<>();
+        notesAndJournalReference.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult)
+            {
+                for(StorageReference file:listResult.getItems())
+                {
+                    File tempFile=null;
+                    try {
+                        tempFile=File.createTempFile("temp",".txt");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Uri destinationUri=Uri.fromFile(tempFile);
+                    FileDownloadTask fileDownloadTask=file.getFile(destinationUri);
+                    File finalTempFile = tempFile;
+                    fileDownloadTask.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                        }
+                    });
+                    fileList.add(finalTempFile);
+                }
+            }
+        });
+        ArrayList<Notes> notesList=new ArrayList<>();
+        for(int i=0;i<fileList.size();i++)
         {
-            FileWriter fileWriter=new FileWriter(localFile,false);
-            fileWriter.write(newNote.noteContents);
-            fileWriter.flush();
-            fileWriter.close();
-        }catch (Exception e)
-        {
+            File tempFile=fileList.get(i);
+            String fileName=tempFile.getName();
+            String fileContents="e";
+            try
+            {
+                FileReader fileReader=new FileReader(tempFile);
+                fileContents=fileReader.toString();
+            }catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+                return null;
+            }
+            Notes tempNote=new Notes(fileName,fileContents);
+            notesList.add(tempNote);
 
         }
 
-        return  localFile.exists();
+        return notesList;
     }
 }

@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class ClientNotesActivity extends AppCompatActivity
 {
     private ListView listOfNotes;
@@ -18,6 +20,13 @@ public class ClientNotesActivity extends AppCompatActivity
     {
         this.listOfNotes=findViewById(R.id.clientNotesList);
         this.addNewNoteButton=findViewById(R.id.addNewNoteButton);
+    }
+
+    private void configureButtons()
+    {
+        this.addNewNoteButton.setOnClickListener((view)->{
+            startActivity(new Intent(ClientNotesActivity.this, ClientNoteTakingActivity.class));
+        });
     }
 
     @Override
@@ -30,10 +39,21 @@ public class ClientNotesActivity extends AppCompatActivity
         configureButtons();
     }
 
-    private void configureButtons()
-    {
-        this.addNewNoteButton.setOnClickListener((view)->{
-            startActivity(new Intent(ClientNotesActivity.this, ClientNoteTakingActivity.class));
-        });
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listOfNotes.setAdapter(null);
+
+        ArrayList<Notes> notesList=ClientNoteTakingUtilities.getAllSavedNotesFromDatabaseStorage(this);
+        if(notesList==null||notesList.size()==0)
+        {
+            Toast.makeText(this, "No notes found", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            ClientNotesAdapter notesAdapter=new ClientNotesAdapter(this, R.layout.note_item,notesList);
+            listOfNotes.setAdapter(notesAdapter);
+        }
     }
 }

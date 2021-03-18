@@ -45,42 +45,15 @@ public class Database
         return successful[0];
     }
 
-    public String isTherapistOrClient(String userID)
+    public boolean sendClientFileURLToDatabase(String fileURL, String userID, String fileName)
     {
-        final String[] userType = {""};
-        therapistsReference.child(userID).addValueEventListener(new ValueEventListener() {
+        final boolean[] successful = {false};
+        clientReference.child(userID).child("textFileURLs").child(fileName).setValue(fileURL).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                if(snapshot.exists())
-                {
-                    userType[0] ="therapist";
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error)
-            {
-
+            public void onSuccess(Void aVoid) {
+                successful[0] =true;
             }
         });
-
-        clientReference.child(userID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                if(snapshot.exists())
-                {
-                    userType[0]="client";
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        return userType[0];
+        return successful[0];
     }
 }
