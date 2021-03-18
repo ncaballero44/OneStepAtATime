@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:screenOrientation="portrait"
-    tools:context=".NotesActivity"
+    tools:context=".ClientNoteTakingActivity"
     android:orientation="vertical">
 
     <ImageView

@@ -33,7 +33,7 @@ public class ClientNotesActivity extends AppCompatActivity
     private void configureButtons()
     {
         this.addNewNoteButton.setOnClickListener((view)->{
-            startActivity(new Intent(ClientNotesActivity.this, NotesActivity.class));
+            startActivity(new Intent(ClientNotesActivity.this, ClientNoteTakingActivity.class));
         });
     }
 }

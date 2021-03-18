@@ -3,11 +3,14 @@ package com.example.onestepatatime;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class Database
 {
@@ -15,6 +18,7 @@ public class Database
     public DatabaseReference root=firebaseDatabase.getReference();
     public DatabaseReference therapistsReference=firebaseDatabase.getReference("therapist");
     public DatabaseReference clientReference=firebaseDatabase.getReference("client");
+
 
     public boolean createNewUser(User newUser)
     {

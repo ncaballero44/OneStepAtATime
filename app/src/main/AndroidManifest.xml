@@ -18,7 +18,10 @@
         <activity android:name=".ClientCalendarActivity"></activity>
         <activity android:name=".ClientJournalActivity"></activity>
         <activity android:name=".ClientWorksheetsActivity"></activity>
+
         <activity android:name=".ClientNotesActivity"></activity>
+        <activity android:name=".ClientNoteTakingActivity"></activity>
+
         <activity android:name=".ClientTherapistListActivity"></activity>
         <activity android:name=".ClientEmergencyContactListActivity"></activity>
 
@@ -29,7 +32,7 @@
         <activity android:name=".TherapistNotesActivity"></activity>
         <activity android:name=".TherapistClientListActivity"></activity>
 
-        <activity android:name=".NotesActivity"></activity>
+
 
         <activity android:name=".RegisterActivity"></activity>
 
