@@ -121,7 +121,6 @@ public class ClientNoteTakingActivity extends AppCompatActivity
                                     else
                                     {
                                         String urlDownload=downloadUri.toString();
-//                                        Toast.makeText(ClientNoteTakingActivity.this, urlDownload, Toast.LENGTH_SHORT).show();
                                         Database database=new Database();
                                         database.sendClientFileURLToDatabase(urlDownload,currentUser.getUid(),newNote.noteTitle);
                                         finish();
@@ -129,7 +128,6 @@ public class ClientNoteTakingActivity extends AppCompatActivity
                                 }
                             }
                         });
-//                        String downloadURL=urlTask.getResult().toString();
 
                     }
 
