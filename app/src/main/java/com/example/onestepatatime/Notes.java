@@ -12,12 +12,14 @@ public class Notes implements Serializable
 //    public long dateTime;
     public String noteTitle;
     public String noteContents;
+    public String ownerUserID;
 
-    public Notes(String noteTitle, String noteContents)
+    public Notes(String noteTitle, String noteContents, String ownerUserID)
     {
 //        this.dateTime=dateTime;
         this.noteTitle=noteTitle;
         this.noteContents=noteContents;
+        this.ownerUserID=ownerUserID;
     }
 
 //    public String getDateTimeFormatted(Context context)

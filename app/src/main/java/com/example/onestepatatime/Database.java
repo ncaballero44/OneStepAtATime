@@ -2,8 +2,12 @@ package com.example.onestepatatime;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,15 +49,17 @@ public class Database
         return successful[0];
     }
 
-    public boolean sendClientFileURLToDatabase(String fileURL, String userID, String fileName)
+    public boolean sendNotesContentToClientDatabaseProfile(FirebaseUser currentUser, Notes newNote)
     {
-        final boolean[] successful = {false};
-        clientReference.child(userID).child("textFileURLs").child(fileName).setValue(fileURL).addOnSuccessListener(new OnSuccessListener<Void>() {
+        final boolean[] successful = {true};
+        clientReference.child(currentUser.getUid()).child("notesAndJournals").child(newNote.noteTitle).setValue(newNote.noteContents).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onSuccess(Void aVoid) {
-                successful[0] =true;
+            public void onFailure(@NonNull Exception e) {
+                successful[0]=false;
             }
         });
         return successful[0];
     }
+
+
 }

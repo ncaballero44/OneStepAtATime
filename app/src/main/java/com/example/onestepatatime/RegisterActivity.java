@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity
                             {
                                 Toast.makeText(RegisterActivity.this, "User created", Toast.LENGTH_SHORT).show();
                             }
-                            //TODO start client/therapist main activity with correct user
+                            finish();
                         }
                         else
                         {
