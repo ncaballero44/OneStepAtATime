@@ -61,5 +61,17 @@ public class Database
         return successful[0];
     }
 
+    public boolean sendNotesContentToTherapistDatabaseProfile(FirebaseUser currentUser, Notes newNote)
+    {
+        final boolean[] successful = {true};
+        therapistsReference.child(currentUser.getUid()).child("notesAndAssessments").child(newNote.noteTitle).setValue(newNote.noteContents).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successful[0]=false;
+            }
+        });
+        return successful[0];
+    }
+
 
 }

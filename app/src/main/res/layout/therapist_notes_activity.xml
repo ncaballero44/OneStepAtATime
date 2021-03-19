@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,4 +9,40 @@
     android:background="@android:color/white"
     android:screenOrientation="portrait">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Manage your notes here"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:id="@+id/therapistNotesTextExplanation">
+    </TextView>
+
+    <ListView
+        android:id="@+id/therapistNotesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:layout_below="@+id/therapistNotesTextExplanation">
+    </ListView>
+
+    <Button
+        android:id="@+id/therapistAddNewNoteButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:alpha="0"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/therapistAddNewNoteIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="visible"
+        app:srcCompat="@mipmap/plus_sign_foreground"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

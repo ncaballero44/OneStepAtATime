@@ -31,7 +31,6 @@
         <activity android:name=".TherapistWorksheetsActivity"></activity>
         <activity android:name=".TherapistNotesActivity"></activity>
         <activity android:name=".TherapistClientListActivity"></activity>
-        <activity android:name=".Dummy"></activity>
 
 
 
