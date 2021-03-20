@@ -29,10 +29,11 @@
         <activity android:name=".TherapistCalendarActivity"></activity>
         <activity android:name=".TherapistAssessmentActivity"></activity>
         <activity android:name=".TherapistWorksheetsActivity"></activity>
+
         <activity android:name=".TherapistNotesActivity"></activity>
+        <activity android:name=".TherapistNoteTakingActivity"></activity>
+
         <activity android:name=".TherapistClientListActivity"></activity>
-
-
 
         <activity android:name=".RegisterActivity"></activity>
 
