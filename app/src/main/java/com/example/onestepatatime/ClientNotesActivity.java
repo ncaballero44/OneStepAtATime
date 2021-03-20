@@ -87,7 +87,6 @@ public class ClientNotesActivity extends AppCompatActivity
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

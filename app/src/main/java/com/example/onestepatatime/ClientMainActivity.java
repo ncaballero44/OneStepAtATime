@@ -17,6 +17,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Scanner;
+
 public class ClientMainActivity extends AppCompatActivity
 {
     Button calendarButton;
@@ -78,6 +86,7 @@ public class ClientMainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_main_activity);
+        updateTherapistList();
         initializeElements();
         configureButtons();
         appendUsernameToTextView();
@@ -106,6 +115,53 @@ public class ClientMainActivity extends AppCompatActivity
         {
             Toast.makeText(ClientMainActivity.this, "Current user is null", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void updateTherapistList()
+    {
+        Database database=new Database();
+
+        final String[] listOfTherapists = {""};
+
+        database.therapistsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                for(DataSnapshot therapistUserId:snapshot.getChildren())
+                {
+                    listOfTherapists[0]=listOfTherapists[0]+therapistUserId.getKey()+"\t";
+                    listOfTherapists[0]=listOfTherapists[0]+therapistUserId.child("email").getValue(String.class)+"\n";
+                }
+                String[] listOfTherapistUserIdsAndEmails=listOfTherapists[0].split("\n");
+                listOfTherapistUserIdsAndEmails=new HashSet<String>(Arrays.asList(listOfTherapistUserIdsAndEmails)).toArray(new String[0]);
+
+                File directory=new File(getApplicationContext().getFilesDir(),"ListsOfClientsAndTherapists");
+                File therapistListFile=new File(directory,"AllTherapists.txt");
+                if(!directory.exists())
+                {
+                    directory.mkdir();
+                }
+                try
+                {
+                    FileWriter writer=new FileWriter(therapistListFile,false);
+                    for(int i=0;i<listOfTherapistUserIdsAndEmails.length;i++)
+                    {
+                        writer.write(listOfTherapistUserIdsAndEmails[i]);
+                    }
+                    writer.flush();
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
 
     }

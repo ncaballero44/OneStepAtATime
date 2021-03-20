@@ -1,11 +1,25 @@
 package com.example.onestepatatime;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Scanner;
 
 public class ClientTherapistListActivity extends AppCompatActivity
 {
@@ -23,6 +37,13 @@ public class ClientTherapistListActivity extends AppCompatActivity
         this.addNewConnectionButton.setOnClickListener((view)->{
             startActivity(new Intent(this, ClientAddNewConnectionActivity.class));
         });
+    }
+
+
+
+    private void getAllConnectedTherapists()
+    {
+
     }
 
     @Override
