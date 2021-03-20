@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -73,5 +74,31 @@ public class Database
         return successful[0];
     }
 
+    public String getTherapistUserIdFromEmail(String therapistEmail)
+    {
+        final String[] therapistUserID = {""};
+
+        String test=therapistsReference.orderByChild("email").equalTo(therapistEmail).toString();
+
+        System.out.println(test);
+
+        therapistsReference.orderByChild("email").equalTo(therapistEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                for(DataSnapshot userSnapshot: snapshot.getChildren())
+                {
+                    therapistUserID[0] =userSnapshot.getKey();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return therapistUserID[0];
+    }
 
 }

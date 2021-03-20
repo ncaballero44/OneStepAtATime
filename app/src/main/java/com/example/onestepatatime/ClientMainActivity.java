@@ -56,10 +56,6 @@ public class ClientMainActivity extends AppCompatActivity
             startActivity(new Intent(ClientMainActivity.this, ClientCalendarActivity.class));
         });
 
-//        this.journalButton.setOnClickListener((view)->{
-//            startActivity(new Intent(ClientMainActivity.this, ClientJournalActivity.class));
-//        });
-
         this.worksheetsButton.setOnClickListener((view)->{
             startActivity(new Intent(ClientMainActivity.this, ClientWorksheetsActivity.class));
         });

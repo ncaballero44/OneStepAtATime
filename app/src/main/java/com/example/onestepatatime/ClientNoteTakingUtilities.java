@@ -4,13 +4,9 @@ import android.content.Context;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 public class ClientNoteTakingUtilities
 {
@@ -18,7 +14,6 @@ public class ClientNoteTakingUtilities
     {
         File directory=new File(context.getFilesDir(),userID);
         File manifestFile=new File(directory,userID+"_Manifest.txt");
-        File manifestFileOutput=new File(directory,userID+"_Manifest_Output.txt");
 
         String[] listOfFiles=new String[(int)manifestFile.length()];
         if(manifestFile.exists())

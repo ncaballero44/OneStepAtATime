@@ -23,6 +23,8 @@
         <activity android:name=".ClientNoteTakingActivity"></activity>
 
         <activity android:name=".ClientTherapistListActivity"></activity>
+        <activity android:name=".ClientAddNewConnectionActivity"></activity>
+
         <activity android:name=".ClientEmergencyContactListActivity"></activity>
 
         <activity android:name=".TherapistMainActivity"></activity>
