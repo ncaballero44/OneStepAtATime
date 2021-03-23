@@ -5,15 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,13 +47,6 @@ public class ClientTherapistListActivity extends AppCompatActivity
         });
     }
 
-
-
-    private void getAllConnectedTherapists()
-    {
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -53,5 +54,31 @@ public class ClientTherapistListActivity extends AppCompatActivity
         setContentView(R.layout.client_therapist_list_activity);
         initializeElements();
         configureButtons();
+//        convertUserIdsToUsernames();
+        setClientTherapistConnectionsList();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        convertUserIdsToUsernames();
+        setClientTherapistConnectionsList();
+
+    }
+
+    private void setClientTherapistConnectionsList()
+    {
+        clientTherapistConnectionsList.setAdapter(null);
+
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+
+        ClientTherapistListUtilities therapistListUtilities=new ClientTherapistListUtilities();
+        String[] therapistUsernameList=therapistListUtilities.getAllConnectedTherapistsUsernames(this, currentUser.getUid());
+
+        ArrayAdapter<String> therapistUsernameAdapter=new ArrayAdapter<String>(this, R.layout.note_item, therapistUsernameList);
+        clientTherapistConnectionsList.setAdapter(therapistUsernameAdapter);
+    }
+
+
 }

@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -90,6 +91,8 @@ public class ClientMainActivity extends AppCompatActivity
         initializeElements();
         configureButtons();
         appendUsernameToTextView();
+        updateTherapistConnectionCollectionFile();
+        convertUserIdsToUsernames();
     }
 
     private void appendUsernameToTextView()
@@ -130,7 +133,9 @@ public class ClientMainActivity extends AppCompatActivity
                 for(DataSnapshot therapistUserId:snapshot.getChildren())
                 {
                     listOfTherapists[0]=listOfTherapists[0]+therapistUserId.getKey()+"\t";
+                    listOfTherapists[0]=listOfTherapists[0]+therapistUserId.child("username").getValue(String.class)+"\t";
                     listOfTherapists[0]=listOfTherapists[0]+therapistUserId.child("email").getValue(String.class)+"\n";
+
                 }
                 String[] listOfTherapistUserIdsAndEmails=listOfTherapists[0].split("\n");
                 listOfTherapistUserIdsAndEmails=new HashSet<String>(Arrays.asList(listOfTherapistUserIdsAndEmails)).toArray(new String[0]);
@@ -160,10 +165,111 @@ public class ClientMainActivity extends AppCompatActivity
 
             }
         });
+    }
 
+    private void updateTherapistConnectionCollectionFile()
+    {
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+        Database database=new Database();
 
+        DatabaseReference listOfConnectedTherapistsReference=database.clientReference.child(currentUser.getUid()).child("connectedTherapists");
+        listOfConnectedTherapistsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                String allConnectedTherapistIds="";
+                for(DataSnapshot currentTherapistUserId:snapshot.getChildren())
+                {
+                    allConnectedTherapistIds=allConnectedTherapistIds+currentTherapistUserId.getKey()+"\n";
+                }
+                String[] listOfTherapistIds=allConnectedTherapistIds.split("\n");
+                listOfTherapistIds=new HashSet<String>(Arrays.asList(listOfTherapistIds)).toArray(new String[0]);
 
+                File directory=new File(getApplicationContext().getFilesDir(),currentUser.getUid());
+                File therapistListFile=new File(directory,currentUser.getUid()+"_ConnectedTherapistUserIds.txt");
+                if(!directory.exists())
+                {
+                    directory.mkdir();
+                }
 
+                try
+                {
+                    FileWriter writer=new FileWriter(therapistListFile,false);
+                    for(int i=0;i<listOfTherapistIds.length;i++)
+                    {
+                        writer.write(listOfTherapistIds[i]+"\n");
+                    }
+                    writer.flush();
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void convertUserIdsToUsernames()
+    {
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+        File directory=new File(getApplicationContext().getFilesDir(),currentUser.getUid());
+
+        File therapistUserIdListFile=new File(directory,currentUser.getUid()+"_ConnectedTherapistUserIds.txt");
+        String[] listOfTherapistUserIds=new String[(int)therapistUserIdListFile.length()];
+
+        if(therapistUserIdListFile.exists())
+        {
+            String fileContents="";
+            try
+            {
+                Scanner scanner=new Scanner(therapistUserIdListFile);
+                if(scanner.hasNext())
+                {
+                    fileContents=scanner.useDelimiter("\\Z").next();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            listOfTherapistUserIds=fileContents.split("\n");
+            listOfTherapistUserIds=new HashSet<String>(Arrays.asList(listOfTherapistUserIds)).toArray(new String[0]);
+        }
+
+        File therapistUsernameList=new File(directory,currentUser.getUid()+"_ConnectedTherapistsUsernames.txt");
+        Database database=new Database();
+
+        try
+        {
+            FileWriter writer=new FileWriter(therapistUsernameList,false);
+
+            for(int i=0;i<listOfTherapistUserIds.length;i++)
+            {
+                DatabaseReference currentTherapistUsernameReference=database.therapistsReference.child(listOfTherapistUserIds[i]).child("username");
+                final String[] currentTherapistUsername = {""};
+                currentTherapistUsernameReference.addValueEventListener(new ValueEventListener()
+                {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot)
+                    {
+                        currentTherapistUsername[0]=snapshot.getValue(String.class);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                writer.write(currentTherapistUsername[0]+"\n");
+            }
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

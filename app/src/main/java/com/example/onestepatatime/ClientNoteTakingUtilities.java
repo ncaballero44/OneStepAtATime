@@ -24,7 +24,7 @@ public class ClientNoteTakingUtilities
                 Scanner scanner=new Scanner(manifestFile);
                 if(scanner.hasNext())
                 {
-                    content = scanner.useDelimiter("\\Z").next();
+                    content=scanner.useDelimiter("\\Z").next();
                 }
 
             } catch (FileNotFoundException e)

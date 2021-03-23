@@ -74,4 +74,24 @@ public class Database
         return successful[0];
     }
 
+    public boolean saveClientTherapistConnection(String therapistId, String clientId)
+    {
+        final boolean[] successful = {true};
+        DatabaseReference listOfConnectedTherapistsReference=clientReference.child(clientId).child("connectedTherapists").child(therapistId);
+        listOfConnectedTherapistsReference.setValue("connected").addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successful[0]=false;
+            }
+        });
+        DatabaseReference listOfConnectedClientsReference=therapistsReference.child(therapistId).child("connectedClients").child(clientId);
+        listOfConnectedClientsReference.setValue("connected").addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successful[0]=false;
+            }
+        });
+        return successful[0];
+    }
+
 }
