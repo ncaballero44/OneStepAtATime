@@ -151,7 +151,7 @@ public class ClientMainActivity extends AppCompatActivity
                     FileWriter writer=new FileWriter(therapistListFile,false);
                     for(int i=0;i<listOfTherapistUserIdsAndEmails.length;i++)
                     {
-                        writer.write(listOfTherapistUserIdsAndEmails[i]);
+                        writer.write(listOfTherapistUserIdsAndEmails[i]+"\n");
                     }
                     writer.flush();
                     writer.close();

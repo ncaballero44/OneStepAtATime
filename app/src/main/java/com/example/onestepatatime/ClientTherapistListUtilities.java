@@ -38,8 +38,6 @@ public class ClientTherapistListUtilities
         String[] listOfConnectedTherapistUserIds=getAllConnectedTherapistUserIds(context,clientUserId);
         for(int i=0;i<listOfAllTherapists.length;i++)
         {
-//            String[] therapistInformation=listOfAllTherapists[i].split("\t");
-//            listOfConnectedTherapistUsernames[i]=therapistInformation[1];
             for(int j=0;j<listOfConnectedTherapistUserIds.length;j++)
             {
                 String[] therapistInformation=listOfAllTherapists[i].split("\t");
