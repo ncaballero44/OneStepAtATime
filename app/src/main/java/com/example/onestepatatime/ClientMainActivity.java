@@ -181,7 +181,11 @@ public class ClientMainActivity extends AppCompatActivity
                 String allConnectedTherapistIds="";
                 for(DataSnapshot currentTherapistUserId:snapshot.getChildren())
                 {
-                    allConnectedTherapistIds=allConnectedTherapistIds+currentTherapistUserId.getKey()+"\n";
+                    if(currentTherapistUserId.getValue(String.class).equals("connected"))
+                    {
+                        allConnectedTherapistIds=allConnectedTherapistIds+currentTherapistUserId.getKey()+"\n";
+                    }
+//                    allConnectedTherapistIds=allConnectedTherapistIds+currentTherapistUserId.getKey()+"\n";
                 }
                 String[] listOfTherapistIds=allConnectedTherapistIds.split("\n");
                 listOfTherapistIds=new HashSet<String>(Arrays.asList(listOfTherapistIds)).toArray(new String[0]);
