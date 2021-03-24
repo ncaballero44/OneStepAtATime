@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +16,33 @@
         android:text="Manage your connections here"
         android:textColor="#000000"
         android:textSize="40sp"
-        android:id="@+id/therapistClientExplanation">
+        android:id="@+id/therapistClientListExplanation">
     </TextView>
+
+    <ListView
+        android:id="@+id/therapistClientConnectionsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:layout_below="@+id/therapistClientListExplanation">
+    </ListView>
+
+    <Button
+        android:id="@+id/addNewClientConnectionButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:alpha="0"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/addNewClientConnectionIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="visible"
+        app:srcCompat="@mipmap/plus_sign_foreground"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

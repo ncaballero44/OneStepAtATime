@@ -24,18 +24,23 @@
 
         <activity android:name=".ClientTherapistListActivity"></activity>
         <activity android:name=".ClientAddNewConnectionActivity"></activity>
+        <activity android:name=".TherapistInfoDisplayActivity"></activity>
 
         <activity android:name=".ClientEmergencyContactListActivity"></activity>
 
         <activity android:name=".TherapistMainActivity"></activity>
+
         <activity android:name=".TherapistCalendarActivity"></activity>
         <activity android:name=".TherapistAssessmentActivity"></activity>
+
         <activity android:name=".TherapistWorksheetsActivity"></activity>
 
         <activity android:name=".TherapistNotesActivity"></activity>
         <activity android:name=".TherapistNoteTakingActivity"></activity>
 
         <activity android:name=".TherapistClientListActivity"></activity>
+        <activity android:name=".TherapistAddNewConnectionActivity"></activity>
+        <activity android:name=".ClientInfoDisplayActivity"></activity>
 
         <activity android:name=".RegisterActivity"></activity>
 

@@ -33,7 +33,7 @@ public class ClientAddNewConnectionActivity extends AppCompatActivity
             String therapistEmail=therapistEmailSearch.getText().toString().trim();
             ClientTherapistListUtilities utilities=new ClientTherapistListUtilities();
             String therapistUserId=utilities.getTherapistIdFromEmail(this, therapistEmail);
-            Toast.makeText(this, therapistUserId, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, therapistUserId, Toast.LENGTH_SHORT).show();
 
             saveConnection(therapistUserId);
         });

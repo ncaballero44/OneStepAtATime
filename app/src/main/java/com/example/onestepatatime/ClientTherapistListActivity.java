@@ -52,16 +52,15 @@ public class ClientTherapistListActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_therapist_list_activity);
+
         initializeElements();
         configureButtons();
-//        convertUserIdsToUsernames();
         setClientTherapistConnectionsList();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        convertUserIdsToUsernames();
         setClientTherapistConnectionsList();
 
     }
@@ -78,7 +77,16 @@ public class ClientTherapistListActivity extends AppCompatActivity
 
         ArrayAdapter<String> therapistUsernameAdapter=new ArrayAdapter<String>(this, R.layout.note_item, therapistUsernameList);
         clientTherapistConnectionsList.setAdapter(therapistUsernameAdapter);
+
+        clientTherapistConnectionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String therapistUsername=clientTherapistConnectionsList.getItemAtPosition(position).toString();
+
+                Intent viewTherapistInfoIntent=new Intent(getApplicationContext(), TherapistInfoDisplayActivity.class);
+                viewTherapistInfoIntent.putExtra("THERAPIST_USERNAME",therapistUsername);
+                startActivity(viewTherapistInfoIntent);
+            }
+        });
     }
-
-
 }

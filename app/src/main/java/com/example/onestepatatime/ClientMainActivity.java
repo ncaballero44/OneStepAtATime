@@ -87,10 +87,13 @@ public class ClientMainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_main_activity);
+
         updateTherapistList();
+
         initializeElements();
         configureButtons();
         appendUsernameToTextView();
+
         updateTherapistConnectionCollectionFile();
         convertUserIdsToUsernames();
     }
@@ -185,7 +188,6 @@ public class ClientMainActivity extends AppCompatActivity
                     {
                         allConnectedTherapistIds=allConnectedTherapistIds+currentTherapistUserId.getKey()+"\n";
                     }
-//                    allConnectedTherapistIds=allConnectedTherapistIds+currentTherapistUserId.getKey()+"\n";
                 }
                 String[] listOfTherapistIds=allConnectedTherapistIds.split("\n");
                 listOfTherapistIds=new HashSet<String>(Arrays.asList(listOfTherapistIds)).toArray(new String[0]);

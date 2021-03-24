@@ -116,6 +116,41 @@ public class ClientTherapistListUtilities
         return therapistUserId;
     }
 
+    public String getTherapistIdFromUsername(Context context, String therapistUsername)
+    {
+        String therapistUserId="";
 
+        File directory=new File(context.getFilesDir(),"ListsOfClientsAndTherapists");
+        File therapistListFile=new File(directory,"AllTherapists.txt");
+
+        String[] listOfTherapistIdsAndEmails=new String[(int)therapistListFile.length()];
+        if(therapistListFile.exists())
+        {
+            String fileContents="";
+            try
+            {
+                Scanner scanner=new Scanner(therapistListFile);
+                if(scanner.hasNext())
+                {
+                    fileContents=scanner.useDelimiter("\\Z").next();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            listOfTherapistIdsAndEmails=fileContents.split("\n");
+            listOfTherapistIdsAndEmails=new HashSet<String>(Arrays.asList(listOfTherapistIdsAndEmails)).toArray(new String[0]);
+
+            for(int i=0; i<listOfTherapistIdsAndEmails.length;i++)
+            {
+                String[] therapistIdAndEmail=new String[3];
+                therapistIdAndEmail=listOfTherapistIdsAndEmails[i].split("\t");
+                if(therapistIdAndEmail[1].equals(therapistUsername))
+                {
+                    therapistUserId=therapistIdAndEmail[0];
+                }
+            }
+        }
+        return therapistUserId;
+    }
 
 }
