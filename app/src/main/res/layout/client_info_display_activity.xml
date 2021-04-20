@@ -27,7 +27,8 @@
         android:textSize="40sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_below="@+id/clientUsernameTitle"/>
+        android:layout_below="@+id/clientUsernameTitle"
+        android:textIsSelectable="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -49,7 +50,8 @@
         android:textSize="40sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_below="@+id/clientFirstNameTitle"/>
+        android:layout_below="@+id/clientFirstNameTitle"
+        android:textIsSelectable="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -71,7 +73,8 @@
         android:textSize="40sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_below="@+id/clientLastNameTitle"/>
+        android:layout_below="@+id/clientLastNameTitle"
+        android:textIsSelectable="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -93,6 +96,7 @@
         android:textSize="40sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_below="@+id/clientEmailTitle"/>
+        android:layout_below="@+id/clientEmailTitle"
+        android:textIsSelectable="true"/>
 
 </RelativeLayout>

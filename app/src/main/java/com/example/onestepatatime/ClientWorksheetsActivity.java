@@ -11,9 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -21,20 +23,33 @@ public class ClientWorksheetsActivity extends AppCompatActivity
 {
     private static final int STORAGE_PERMISSION_CODE=100;
 
+    Button syncButton;
+
+    private void configureButtons()
+    {
+        this.syncButton=findViewById(R.id.clientSyncButton);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_worksheets_activity);
 
-       if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED)
-       {
+        configureButtons();
+        writeToDownloadsFolder();
+    }
+
+    private void writeToDownloadsFolder()
+    {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED)
+        {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
-       }
-       else
-       {
-           try
-           {
+        }
+        else
+        {
+            try
+            {
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.MediaColumns.DISPLAY_NAME, "test");
                 values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
@@ -46,16 +61,15 @@ public class ClientWorksheetsActivity extends AppCompatActivity
                 outputStream.write("This is a test.".getBytes());
                 outputStream.close();
                 Toast.makeText(this, "File created", Toast.LENGTH_SHORT).show();
-           }
-           catch (FileNotFoundException e)
-           {
-               Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
-           }
-           catch (IOException e)
-           {
-               Toast.makeText(this, "Failed to create file", Toast.LENGTH_SHORT).show();
-           }
-       }
-
+            }
+            catch (FileNotFoundException e)
+            {
+                Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
+            }
+            catch (IOException e)
+            {
+                Toast.makeText(this, "Failed to create file", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

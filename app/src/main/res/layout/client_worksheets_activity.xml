@@ -13,10 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="To find the files shared between you and "
+        android:text="To find the files shared between you and your therapists, put your files into the folder One Step At A Time Shared Files found in your devices Download folder. To send new files, press the sync button"
         android:textColor="#000000"
         android:textSize="40sp"
-        android:id="@+id/clientTherapistListExplanation">
+        android:id="@+id/sharedFilesExplanation">
     </TextView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textSize="45sp"
+        android:background="#FF0000"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:text="Sync"
+        android:id="@+id/clientSyncButton"/>
 
 </RelativeLayout>

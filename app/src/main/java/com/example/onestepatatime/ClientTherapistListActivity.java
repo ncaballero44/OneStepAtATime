@@ -59,10 +59,10 @@ public class ClientTherapistListActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         setClientTherapistConnectionsList();
-
     }
 
     private void setClientTherapistConnectionsList()

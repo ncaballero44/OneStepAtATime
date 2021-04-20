@@ -1,5 +1,6 @@
 package com.example.onestepatatime;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +25,7 @@ public class ClientNoteTakingActivity extends AppCompatActivity
 {
     Button saveNotesButton;
     Button undoNotesButton;
-    Button deleteNotesButton;
+    Button shareNotesButton;
 
     EditText notesTitle;
     EditText notesContent;
@@ -37,7 +38,7 @@ public class ClientNoteTakingActivity extends AppCompatActivity
     {
         this.saveNotesButton=findViewById(R.id.saveNotesButton);
         this.undoNotesButton=findViewById(R.id.undoNotesButton);
-        this.deleteNotesButton=findViewById(R.id.deleteNotesButton);
+        this.shareNotesButton=findViewById(R.id.shareNotesButton);
 
         this.notesTitle=findViewById(R.id.notesTitle);
         this.notesContent=findViewById(R.id.notesContent);
@@ -52,14 +53,13 @@ public class ClientNoteTakingActivity extends AppCompatActivity
             finish();
         });
 
-        this.deleteNotesButton.setOnClickListener((view)->{
-            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-            FirebaseUser currentUser=firebaseAuth.getCurrentUser();
-
-            String newNoteTitle=this.notesTitle.getText().toString();
-            Database database=new Database();
-            database.clientReference.child(currentUser.getUid()).child("notesAndJournal").child(newNoteTitle).removeValue();
-            finish();
+        this.shareNotesButton.setOnClickListener((view)->{
+            Intent shareNoteIntent=new Intent(getApplicationContext(), ClientShareNoteActivity.class);
+            String noteTitle=this.notesTitle.getText().toString();
+            String noteContent=this.notesContent.getText().toString();
+            String noteTitleAndContentCombined=noteTitle+"\r\n\r\n"+noteContent;
+            shareNoteIntent.putExtra("NOTE_TITLE_AND_CONTENTS",noteTitleAndContentCombined);
+            startActivity(shareNoteIntent);
         });
     }
 
