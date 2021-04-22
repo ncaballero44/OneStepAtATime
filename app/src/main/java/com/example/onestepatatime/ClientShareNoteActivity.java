@@ -9,11 +9,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 public class ClientShareNoteActivity extends AppCompatActivity
 {
@@ -60,11 +64,7 @@ public class ClientShareNoteActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String therapistUsername=clientShareNoteTherapistConnectionsList.getItemAtPosition(position).toString();
 
-//                Intent viewTherapistInfoIntent=new Intent(getApplicationContext(), TherapistInfoDisplayActivity.class);
-//                viewTherapistInfoIntent.putExtra("THERAPIST_USERNAME",therapistUsername);
-//                startActivity(viewTherapistInfoIntent);
                 AlertDialog.Builder builder=new AlertDialog.Builder(ClientShareNoteActivity.this);
-
                 builder.setMessage("Are you sure you want to send your note to "+therapistUsername+"?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -73,9 +73,20 @@ public class ClientShareNoteActivity extends AppCompatActivity
                     {
                         String noteTitleAndContent=getIntent().getStringExtra("NOTE_TITLE_AND_CONTENTS");
                         String[] noteTitleAndContentSeparated=noteTitleAndContent.split("\r\n\r\n",2);
-//                        Toast.makeText(ClientShareNoteActivity.this, "Title: "+noteTitleAndContentSeparated[0]+" Content: "+noteTitleAndContentSeparated[1], Toast.LENGTH_SHORT).show();
-                        //TODO take title and content and put it into the database under a shared child for both the therapist and client
-                        finish();
+
+                        String noteTitle=noteTitleAndContentSeparated[0];
+                        String noteContent=noteTitleAndContentSeparated[1];//+"\n\nShared with: "+ therapistUsername;
+
+                        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+                        FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+
+                        Notes sharedNote=new Notes(noteTitle,noteContent,currentUser.getUid());
+
+
+                        saveSharedNote(sharedNote,therapistUsername);
+
+
+
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -88,5 +99,36 @@ public class ClientShareNoteActivity extends AppCompatActivity
             alertDialog.show();
             }
         });
+    }
+
+    private void saveSharedNote(Notes sharedNote, String therapistUsername)
+    {
+        ClientTherapistListUtilities clientTherapistListUtilities=new ClientTherapistListUtilities();
+        String therapistUserId=clientTherapistListUtilities.getTherapistIdFromUsername(ClientShareNoteActivity.this, therapistUsername);
+        Database database=new Database();
+        final String[] clientUsername={""};
+        database.clientReference.child(sharedNote.ownerUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                clientUsername[0]=snapshot.child("username").getValue().toString().trim();
+                if(database.sendSharedNoteToTherapistAndClient(therapistUserId,sharedNote.ownerUserID,sharedNote, clientUsername[0],therapistUsername))
+                {
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(ClientShareNoteActivity.this, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
     }
 }
