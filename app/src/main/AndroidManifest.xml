@@ -27,6 +27,8 @@
         <activity android:name=".ClientAddNewConnectionActivity"></activity>
         <activity android:name=".TherapistInfoDisplayActivity"></activity>
         <activity android:name=".ClientShareNoteActivity"></activity>
+        <activity android:name=".ClientSharedNotesActivity"></activity>
+        <activity android:name=".ClientSharedNoteTakingActivity"></activity>
 
 
         <activity android:name=".ClientEmergencyContactListActivity"></activity>

@@ -29,8 +29,7 @@ import java.util.Scanner;
 public class ClientMainActivity extends AppCompatActivity
 {
     Button calendarButton;
-//    Button journalButton;
-    Button worksheetsButton;
+    Button sharedNotesButton;
     Button notesJournalButton;
     Button therapistListButton;
     Button emergencyContactListButton;
@@ -45,9 +44,7 @@ public class ClientMainActivity extends AppCompatActivity
 
     private void initializeElements()
     {
-        this.calendarButton=findViewById(R.id.calendarButtonClient);
-//        this.journalButton=findViewById(R.id.journalButtonClient);
-        this.worksheetsButton=findViewById(R.id.worksheetsButtonClient);
+        this.sharedNotesButton=findViewById(R.id.sharedNotesButtonClient);
         this.notesJournalButton=findViewById(R.id.notesJournalButtonClient);
         this.therapistListButton=findViewById(R.id.therapistListButton);
         this.emergencyContactListButton=findViewById(R.id.emergencyContactListButtonClient);
@@ -61,12 +58,8 @@ public class ClientMainActivity extends AppCompatActivity
 
     private void configureButtons()
     {
-        this.calendarButton.setOnClickListener((view)->{
-            startActivity(new Intent(ClientMainActivity.this, ClientCalendarActivity.class));
-        });
-
-        this.worksheetsButton.setOnClickListener((view)->{
-            startActivity(new Intent(ClientMainActivity.this, ClientWorksheetsActivity.class));
+        this.sharedNotesButton.setOnClickListener((view)->{
+            startActivity(new Intent(ClientMainActivity.this, ClientSharedNotesActivity.class));
         });
 
         this.notesJournalButton.setOnClickListener((view)->{
@@ -96,6 +89,7 @@ public class ClientMainActivity extends AppCompatActivity
 
         updateTherapistConnectionCollectionFile();
         convertUserIdsToUsernames();
+        updateManifestFromDatabase();
     }
 
     private void appendUsernameToTextView()
@@ -108,7 +102,7 @@ public class ClientMainActivity extends AppCompatActivity
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     username[0] =snapshot.child("username").getValue().toString().trim();
-                    welcomeMessage.append(username[0]);
+                    welcomeMessage.setText("Welcome back\n"+username[0]);
                     currentUsername=username[0];
                 }
                 @Override
@@ -276,6 +270,46 @@ public class ClientMainActivity extends AppCompatActivity
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void updateManifestFromDatabase()
+    {
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+        File directory=new File(this.getFilesDir(),currentUser.getUid());
+        if(!directory.exists())
+        {
+            directory.mkdir();
+        }
+        File sharedManifestFile=new File(directory,currentUser.getUid()+"_Shared_Manifest.txt");
+        Database database=new Database();
+        DatabaseReference reference=database.clientReference.child(currentUser.getUid()).child("sharedNotes");
+        reference.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                String manifestFileContents="";
+                for(DataSnapshot noteTitle:snapshot.getChildren())
+                {
+                    manifestFileContents+=noteTitle.getKey()+"\n";
+                }
+                try
+                {
+                    FileWriter writer=new FileWriter(sharedManifestFile,false);
+                    writer.write(manifestFileContents);
+                    writer.flush();
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }

@@ -102,7 +102,7 @@ public class TherapistMainActivity extends AppCompatActivity
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     username[0] =snapshot.child("username").getValue().toString().trim();
-                    welcomeMessage.append(username[0]);
+                    welcomeMessage.setText("Welcome back\n"+username[0]);
                     currentUsername=username[0];
                 }
                 @Override

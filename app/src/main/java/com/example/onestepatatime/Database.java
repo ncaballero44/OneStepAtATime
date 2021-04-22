@@ -98,14 +98,14 @@ public class Database
     {
         final boolean[] successful = {true};
 
-        clientReference.child(clientId).child("sharedNotes").child(sharedNote.noteTitle).setValue(sharedNote.noteContents+"\n\nShared with: "+therapistUsername).addOnFailureListener(new OnFailureListener() {
+        clientReference.child(clientId).child("sharedNotes").child(sharedNote.noteTitle+"-Shared with: "+therapistUsername).setValue(sharedNote.noteContents).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 successful[0]=false;
             }
         });
 
-        therapistsReference.child(therapistId).child("sharedNotes").child(sharedNote.noteTitle).setValue(sharedNote.noteContents+"\n\nShared with: "+clientUsername).addOnFailureListener(new OnFailureListener() {
+        therapistsReference.child(therapistId).child("sharedNotes").child(sharedNote.noteTitle+"-Shared with: "+clientUsername).setValue(sharedNote.noteContents).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 successful[0]=false;

@@ -151,8 +151,15 @@ public class ClientNoteTakingActivity extends AppCompatActivity
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String content =snapshot.getValue().toString();
-                    notesContent.setText(content);
+                    if(snapshot.getValue()!=null)
+                    {
+                        String content =snapshot.getValue().toString();
+                        notesContent.setText(content);
+                    }
+                    else
+                    {
+                        notesContent.setText("");
+                    }
                 }
 
                 @Override

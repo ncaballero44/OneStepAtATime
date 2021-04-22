@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/welcomeMessageClient"
-        android:text="Welcome back \n"
         android:textColor="#000000"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -35,37 +34,12 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/calendarButtonClient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text="Chat"
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"/>
-
-<!--            <Button-->
-<!--                android:id="@+id/journalButtonClient"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="#f71414"-->
-<!--                android:gravity="center"-->
-<!--                android:text="Journal"-->
-<!--                android:textColor="#000000"-->
-<!--                android:textSize="40sp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginBottom="10dp"/>-->
-
-            <Button
-                android:id="@+id/worksheetsButtonClient"
+                android:id="@+id/sharedNotesButtonClient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#7f8efa"
                 android:gravity="center"
-                android:text="Worksheets"
+                android:text="Shared Notes"
                 android:textColor="#000000"
                 android:textSize="40sp"
                 android:textStyle="bold"
