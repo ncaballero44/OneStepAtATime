@@ -26,8 +26,8 @@ import java.util.Scanner;
 
 public class TherapistMainActivity extends AppCompatActivity
 {
-    Button calendarButton;
-    Button worksheetsButton;
+
+    Button sharedNotesButton;
     Button notesAssessmentButton;
     Button clientListButton;
 
@@ -41,8 +41,7 @@ public class TherapistMainActivity extends AppCompatActivity
 
     private void initializeElements()
     {
-        this.calendarButton=findViewById(R.id.calendarButtonTherapist);
-        this.worksheetsButton=findViewById(R.id.worksheetsButtonTherapist);
+        this.sharedNotesButton=findViewById(R.id.worksheetsButtonTherapist);
         this.notesAssessmentButton=findViewById(R.id.notesAssessmentButtonTherapist);
         this.clientListButton=findViewById(R.id.clientListButton);
 
@@ -58,11 +57,7 @@ public class TherapistMainActivity extends AppCompatActivity
 
     private void configureButtons()
     {
-        this.calendarButton.setOnClickListener((view)->{
-            startActivity(new Intent(TherapistMainActivity.this, TherapistCalendarActivity.class));
-        });
-
-        this.worksheetsButton.setOnClickListener((view)->{
+        this.sharedNotesButton.setOnClickListener((view)->{
             startActivity(new Intent(TherapistMainActivity.this, TherapistWorksheetsActivity.class));
         });
 

@@ -25,7 +25,6 @@
         android:text=""
         android:textColor="#000000"
         android:textSize="40sp"
-        android:textStyle="bold"
         android:gravity="center"
         android:layout_below="@+id/clientUsernameTitle"
         android:textIsSelectable="true"/>
@@ -48,7 +47,6 @@
         android:text=""
         android:textColor="#000000"
         android:textSize="40sp"
-        android:textStyle="bold"
         android:gravity="center"
         android:layout_below="@+id/clientFirstNameTitle"
         android:textIsSelectable="true"/>
@@ -71,7 +69,6 @@
         android:text=""
         android:textColor="#000000"
         android:textSize="40sp"
-        android:textStyle="bold"
         android:gravity="center"
         android:layout_below="@+id/clientLastNameTitle"
         android:textIsSelectable="true"/>
@@ -93,9 +90,9 @@
         android:id="@+id/clientEmail"
         android:text=""
         android:textColor="#000000"
-        android:textSize="40sp"
-        android:textStyle="bold"
+        android:textSize="25sp"
         android:gravity="center"
+        android:maxLines="1"
         android:layout_below="@+id/clientEmailTitle"
         android:textIsSelectable="true"/>
 

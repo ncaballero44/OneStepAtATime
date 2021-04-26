@@ -25,8 +25,8 @@
         android:text=""
         android:textColor="#000000"
         android:textSize="40sp"
-        android:textStyle="bold"
         android:gravity="center"
+        android:textIsSelectable="true"
         android:layout_below="@+id/therapistUsernameTitle"/>
 
     <TextView
@@ -47,8 +47,8 @@
         android:text=""
         android:textColor="#000000"
         android:textSize="40sp"
-        android:textStyle="bold"
         android:gravity="center"
+        android:textIsSelectable="true"
         android:layout_below="@+id/therapistFirstNameTitle"/>
 
     <TextView
@@ -69,8 +69,8 @@
         android:text=""
         android:textColor="#000000"
         android:textSize="40sp"
-        android:textStyle="bold"
         android:gravity="center"
+        android:textIsSelectable="true"
         android:layout_below="@+id/therapistLastNameTitle"/>
 
     <TextView
@@ -90,9 +90,10 @@
         android:id="@+id/therapistEmail"
         android:text=""
         android:textColor="#000000"
-        android:textSize="40sp"
-        android:textStyle="bold"
+        android:textSize="25sp"
+        android:maxLines="1"
         android:gravity="center"
+        android:textIsSelectable="true"
         android:layout_below="@+id/therapistEmailTitle"/>
 
 </RelativeLayout>
