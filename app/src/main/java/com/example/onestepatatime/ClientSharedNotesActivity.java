@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+//Displays the shared notes of a client
 public class ClientSharedNotesActivity extends AppCompatActivity
 {
     private ListView listOfSharedNotes;

@@ -1,5 +1,6 @@
 package com.example.onestepatatime;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +24,7 @@ public class TherapistNoteTakingActivity extends AppCompatActivity
 {
     Button saveNotesButton;
     Button undoNotesButton;
-    Button deleteNotesButton;
+    Button shareNotesButton;
 
     EditText notesTitle;
     EditText notesContent;
@@ -36,7 +37,7 @@ public class TherapistNoteTakingActivity extends AppCompatActivity
     {
         this.saveNotesButton=findViewById(R.id.saveNotesButtonTherapist);
         this.undoNotesButton=findViewById(R.id.undoNotesButtonTherapist);
-        this.deleteNotesButton=findViewById(R.id.deleteNotesButtonTherapist);
+        this.shareNotesButton=findViewById(R.id.shareNotesButtonTherapist);
 
         this.notesTitle=findViewById(R.id.notesTitleTherapist);
         this.notesContent=findViewById(R.id.notesContentTherapist);
@@ -51,14 +52,13 @@ public class TherapistNoteTakingActivity extends AppCompatActivity
             finish();
         });
 
-        this.deleteNotesButton.setOnClickListener((view)->{
-            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-            FirebaseUser currentUser=firebaseAuth.getCurrentUser();
-
-            String newNoteTitle=this.notesTitle.getText().toString();
-            Database database=new Database();
-            database.therapistsReference.child(currentUser.getUid()).child("notesAndAssessments").child(newNoteTitle).removeValue();
-            finish();
+        this.shareNotesButton.setOnClickListener((view)->{
+            Intent shareNoteIntent=new Intent(getApplicationContext(), TherapistShareNoteActivity.class);
+            String noteTitle=this.notesTitle.getText().toString();
+            String noteContent=this.notesContent.getText().toString();
+            String noteTitleAndContentCombined=noteTitle+"\r\n\r\n"+noteContent;
+            shareNoteIntent.putExtra("NOTE_TITLE_AND_CONTENTS",noteTitleAndContentCombined);
+            startActivity(shareNoteIntent);
         });
     }
 

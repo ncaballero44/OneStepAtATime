@@ -92,15 +92,55 @@ public class LoginActivity extends AppCompatActivity
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            Toast.makeText(LoginActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
                             if(clientCheckbox.isChecked())
                             {
-                                startActivity(new Intent(getApplicationContext(), ClientMainActivity.class));
+                                FirebaseUser currentUser=fAuth.getCurrentUser();
+                                Database database=new Database();
+                                database.clientReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(snapshot.child(currentUser.getUid()).getValue()!=null)
+                                        {
+                                            Toast.makeText(LoginActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getApplicationContext(), ClientMainActivity.class));
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(LoginActivity.this, "User not found. Please ensure login credentials are correct or create a new account if you are a new user", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                             else if(therapistCheckbox.isChecked())
                             {
-                                startActivity(new Intent(getApplicationContext(), TherapistMainActivity.class));
+                                FirebaseUser currentUser=fAuth.getCurrentUser();
+                                Database database=new Database();
+                                database.therapistsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(snapshot.child(currentUser.getUid()).getValue()!=null)
+                                        {
+                                            Toast.makeText(LoginActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getApplicationContext(), TherapistMainActivity.class));
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(LoginActivity.this, "User not found. Please ensure login credentials are correct or create a new account if you are a new user", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
+
                         }
                         else
                         {

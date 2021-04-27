@@ -80,7 +80,9 @@ public class TherapistMainActivity extends AppCompatActivity
 
         initializeElements();
         initializeDatabase();
+
         configureButtons();
+
         appendUsernameToTextView();
 
         updateClientConnectionCollectionFile();
@@ -95,10 +97,14 @@ public class TherapistMainActivity extends AppCompatActivity
             final String[] username = {""};
             database.root.child("therapist").child(currentUserID).addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    username[0] =snapshot.child("username").getValue().toString().trim();
-                    welcomeMessage.setText("Welcome back\n"+username[0]);
-                    currentUsername=username[0];
+                public void onDataChange(@NonNull DataSnapshot snapshot)
+                {
+                    if(snapshot.child("username").getValue()!=null)
+                    {
+                        username[0] =snapshot.child("username").getValue().toString().trim();
+                        welcomeMessage.setText("Welcome back\n"+username[0]);
+                        currentUsername=username[0];
+                    }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

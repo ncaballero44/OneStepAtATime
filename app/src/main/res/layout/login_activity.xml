@@ -60,21 +60,13 @@
         android:layout_alignParentEnd = "true"
         />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="login"
-        android:textSize="50dp"
-        android:layout_below="@+id/passwordEntry"
-        android:id="@+id/loginButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+
 
     <CheckBox
         android:id="@+id/loginTherapistCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below = "@+id/loginButton"
+        android:layout_below="@+id/passwordEntry"
         android:layout_marginTop = "20dp"
         android:text="Therapist"
         android:textSize="35dp"
@@ -90,10 +82,20 @@
         />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="login"
+        android:textSize="50dp"
+        android:layout_below="@+id/loginClientCheckbox"
+        android:id="@+id/loginButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="register"
-        android:textSize="30dp"
+        android:textSize="50dp"
         android:id="@+id/registerButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />

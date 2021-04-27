@@ -18,71 +18,69 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-//Shares note with selected client
-public class ClientShareNoteActivity extends AppCompatActivity
+public class TherapistShareNoteActivity extends AppCompatActivity
 {
-    ListView clientShareNoteTherapistConnectionsList;
+    ListView therapistShareNoteTherapistConnectionsList;
 
     private void initializeElements()
     {
-        this.clientShareNoteTherapistConnectionsList=findViewById(R.id.clientShareNoteTherapistConnectionsList);
+        this.therapistShareNoteTherapistConnectionsList=findViewById(R.id.therapistShareNoteTherapistConnectionsList);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.client_share_note_activity);
+        setContentView(R.layout.therapist_share_note_activity);
 
         initializeElements();
-        setClientTherapistConnectionsList();
+        setTherapistClientConnectionsList();
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        setClientTherapistConnectionsList();
+        setTherapistClientConnectionsList();
     }
 
-    private void setClientTherapistConnectionsList()
+    private void setTherapistClientConnectionsList()
     {
-        clientShareNoteTherapistConnectionsList.setAdapter(null);
+        therapistShareNoteTherapistConnectionsList.setAdapter(null);
 
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
         FirebaseUser currentUser=firebaseAuth.getCurrentUser();
 
-        ClientTherapistListUtilities therapistListUtilities=new ClientTherapistListUtilities();
-        String[] therapistUsernameList=therapistListUtilities.getAllConnectedTherapistsUsernames(this, currentUser.getUid());
+        TherapistClientListUtilities clientListUtilities=new TherapistClientListUtilities();
+        String[] connectedClientUsernameList=clientListUtilities.getAllConnectedClientsUsernames(this, currentUser.getUid());
 
-        ArrayAdapter<String> therapistUsernameAdapter=new ArrayAdapter<String>(this, R.layout.note_item, therapistUsernameList);
-        clientShareNoteTherapistConnectionsList.setAdapter(therapistUsernameAdapter);
+        ArrayAdapter<String> clientUsernameAdapter=new ArrayAdapter<String>(this,R.layout.note_item,connectedClientUsernameList);
+        therapistShareNoteTherapistConnectionsList.setAdapter(clientUsernameAdapter);
 
-        clientShareNoteTherapistConnectionsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+
+        therapistShareNoteTherapistConnectionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String therapistUsername=clientShareNoteTherapistConnectionsList.getItemAtPosition(position).toString();
+                String clientUsername=therapistShareNoteTherapistConnectionsList.getItemAtPosition(position).toString();
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(ClientShareNoteActivity.this);
-                builder.setMessage("Are you sure you want to send your note to "+therapistUsername+"?")
+                AlertDialog.Builder builder=new AlertDialog.Builder(TherapistShareNoteActivity.this);
+                builder.setMessage("Are you sure you want to send your note to "+clientUsername+"?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
                         String noteTitleAndContent=getIntent().getStringExtra("NOTE_TITLE_AND_CONTENTS");
                         String[] noteTitleAndContentSeparated=noteTitleAndContent.split("\r\n\r\n",2);
 
                         String noteTitle=noteTitleAndContentSeparated[0];
-                        String noteContent=noteTitleAndContentSeparated[1];//+"\n\nShared with: "+ therapistUsername;
+                        String noteContent=noteTitleAndContentSeparated[1];
 
                         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
                         FirebaseUser currentUser=firebaseAuth.getCurrentUser();
 
                         Notes sharedNote=new Notes(noteTitle,noteContent,currentUser.getUid());
 
-                        saveSharedNote(sharedNote,therapistUsername);
+                        saveSharedNote(sharedNote,clientUsername);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -97,24 +95,23 @@ public class ClientShareNoteActivity extends AppCompatActivity
         });
     }
 
-    private void saveSharedNote(Notes sharedNote, String therapistUsername)
+    private void saveSharedNote(Notes sharedNote, String clientUsername)
     {
-        ClientTherapistListUtilities clientTherapistListUtilities=new ClientTherapistListUtilities();
-        String therapistUserId=clientTherapistListUtilities.getTherapistIdFromUsername(ClientShareNoteActivity.this, therapistUsername);
+        TherapistClientListUtilities therapistClientListUtilities=new TherapistClientListUtilities();
+        String clientUserId=therapistClientListUtilities.getClientIdFromUsername(TherapistShareNoteActivity.this,clientUsername);
         Database database=new Database();
-        final String[] clientUsername={""};
-        database.clientReference.child(sharedNote.ownerUserID).addValueEventListener(new ValueEventListener() {
+        final String[] therapistUsername={""};
+        database.therapistsReference.child(sharedNote.ownerUserID).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                clientUsername[0]=snapshot.child("username").getValue().toString().trim();
-                if(database.sendSharedNoteToTherapistAndClient(therapistUserId,sharedNote.ownerUserID,sharedNote, clientUsername[0],therapistUsername))
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                therapistUsername[0]=snapshot.child("username").getValue().toString().trim();
+                if(database.sendSharedNoteToTherapistAndClient(sharedNote.ownerUserID,clientUserId,sharedNote,clientUsername,therapistUsername[0]))
                 {
                     finish();
                 }
                 else
                 {
-                    Toast.makeText(ClientShareNoteActivity.this, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TherapistShareNoteActivity.this, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -123,8 +120,5 @@ public class ClientShareNoteActivity extends AppCompatActivity
 
             }
         });
-
-
-
     }
 }

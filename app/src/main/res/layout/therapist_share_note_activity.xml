@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClientShareNoteActivity"
+    tools:context=".TherapistShareNoteActivity"
     android:background="@android:color/white"
     android:screenOrientation="portrait">
 
@@ -12,18 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Tap a connected therapist to share your note"
+        android:text="Tap a connected client to share your note"
         android:textColor="#000000"
         android:textSize="40sp"
-        android:id="@+id/clientShareNoteExplanation">
+        android:id="@+id/therapistShareNoteExplanation">
     </TextView>
 
     <ListView
-        android:id="@+id/clientShareNoteTherapistConnectionsList"
+        android:id="@+id/therapistShareNoteTherapistConnectionsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="100dp"
-        android:layout_below="@+id/clientShareNoteExplanation">
+        android:layout_below="@+id/therapistShareNoteExplanation">
     </ListView>
 
 </RelativeLayout>

@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+//Displays the contents and title of a shared note
 public class ClientSharedNoteTakingActivity extends AppCompatActivity
 {
     TextView notesTitleShared;
