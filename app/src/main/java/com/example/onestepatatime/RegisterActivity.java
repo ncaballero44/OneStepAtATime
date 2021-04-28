@@ -102,8 +102,6 @@ public class RegisterActivity extends AppCompatActivity
             }
             else
             {
-                //TODO create firebase auth
-
                 fAuth.createUserWithEmailAndPassword(newUser.email, newUser.password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

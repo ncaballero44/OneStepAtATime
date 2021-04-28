@@ -17,6 +17,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Database
 {
     FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
@@ -106,6 +109,24 @@ public class Database
         });
 
         therapistsReference.child(therapistId).child("sharedNotes").child(sharedNote.noteTitle+"-Shared with: "+clientUsername).setValue(sharedNote.noteContents).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successful[0]=false;
+            }
+        });
+
+        return successful[0];
+    }
+
+    public boolean saveNewEmergencyContactToDatabase(EmergencyContact newEmergencyContact, String clientId)
+    {
+        final boolean[] successful = {true};
+
+        Map<String,Object> emergencyContactInformation=new HashMap<>();
+        emergencyContactInformation.put("phoneNumber",newEmergencyContact.contactPhoneNumber);
+        emergencyContactInformation.put("relationship",newEmergencyContact.contactRelationship);
+        
+        clientReference.child(clientId).child("emergencyContacts").child(newEmergencyContact.contactName).setValue(emergencyContactInformation).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 successful[0]=false;
