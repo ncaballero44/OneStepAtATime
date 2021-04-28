@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
+    android:screenOrientation="portrait"
+    tools:context=".ClientAddNewEmergencyContactEntryActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clientAddEmergencyExplanation"
+        android:text="Enter in your contact's information here"
+        android:textSize="40sp"
+        android:textColor="#000000"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clientAddEmergencyName"
+        android:text="Name:"
+        android:textSize="40sp"
+        android:textColor="#000000"
+        android:layout_below="@+id/clientAddEmergencyExplanation"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clientAddEmergencyNameEntry"
+        android:layout_below="@+id/clientAddEmergencyName"
+        android:hint="Enter your contact's full name"
+        android:textSize="25sp"
+        android:textColorHighlight = "#000000"
+        android:textColorHint = "#00008b"
+        android:textColor="#00008b"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clientAddEmergencyPhoneNumber"
+        android:text="Phone Number:"
+        android:textSize="40sp"
+        android:textColor="#000000"
+        android:layout_below="@+id/clientAddEmergencyNameEntry"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clientAddEmergencyPhoneNumberEntry"
+        android:layout_below="@+id/clientAddEmergencyPhoneNumber"
+        android:hint="Enter your contact's phone number"
+        android:textSize="25sp"
+        android:textColorHighlight = "#00008b"
+        android:textColorHint = "#00008b"
+        android:textColor="#00008b"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clientAddEmergencyRelationship"
+        android:text="Relationship:"
+        android:textSize="40sp"
+        android:textColor="#000000"
+        android:layout_below="@+id/clientAddEmergencyPhoneNumberEntry"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clientAddEmergencyRelationshipEntry"
+        android:layout_below="@+id/clientAddEmergencyRelationship"
+        android:hint="Enter your contact's relationship to you"
+        android:textSize="25sp"
+        android:textColorHighlight = "#00008b"
+        android:textColorHint = "#00008b"
+        android:textColor="#00008b"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Emergency Contact"
+        android:textSize="30dp"
+        android:id="@+id/confirmEmergencyContactButton"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="#FF0000"
+        android:gravity="center"
+        android:textColor="#000000"/>
+
+
+</RelativeLayout>

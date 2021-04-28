@@ -29,6 +29,8 @@
         <activity android:name=".ClientShareNoteActivity"></activity>
         <activity android:name=".ClientSharedNotesActivity"></activity>
         <activity android:name=".ClientSharedNoteTakingActivity"></activity>
+        
+        <activity android:name=".ClientAddNewEmergencyContactEntryActivity"></activity>
 
 
         <activity android:name=".ClientEmergencyContactListActivity"></activity>
