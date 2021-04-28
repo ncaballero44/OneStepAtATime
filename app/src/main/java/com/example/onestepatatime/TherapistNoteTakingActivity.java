@@ -90,7 +90,6 @@ public class TherapistNoteTakingActivity extends AppCompatActivity
                 saveNote();
             }
         });
-
     }
 
     private void saveNote()

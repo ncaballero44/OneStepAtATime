@@ -18,7 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-//Shares note with selected client
+//Displays shared notes with selected client
 public class ClientShareNoteActivity extends AppCompatActivity
 {
     ListView clientShareNoteTherapistConnectionsList;
@@ -123,8 +123,5 @@ public class ClientShareNoteActivity extends AppCompatActivity
 
             }
         });
-
-
-
     }
 }

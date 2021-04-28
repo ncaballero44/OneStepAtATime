@@ -28,7 +28,6 @@ import java.util.Scanner;
 
 public class ClientMainActivity extends AppCompatActivity
 {
-    Button calendarButton;
     Button sharedNotesButton;
     Button notesJournalButton;
     Button therapistListButton;
@@ -89,7 +88,7 @@ public class ClientMainActivity extends AppCompatActivity
 
         updateTherapistConnectionCollectionFile();
         convertUserIdsToUsernames();
-        updateManifestFromDatabase();
+        updateClientSharedManifestFromDatabase();
     }
 
     private void appendUsernameToTextView()
@@ -272,7 +271,7 @@ public class ClientMainActivity extends AppCompatActivity
         }
     }
 
-    private void updateManifestFromDatabase()
+    private void updateClientSharedManifestFromDatabase()
     {
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
         FirebaseUser currentUser=firebaseAuth.getCurrentUser();

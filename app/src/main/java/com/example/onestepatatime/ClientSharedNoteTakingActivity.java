@@ -1,10 +1,7 @@
 package com.example.onestepatatime;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,6 +63,5 @@ public class ClientSharedNoteTakingActivity extends AppCompatActivity
            this.notesTitleShared.setText(sharedNote.noteTitle);
        }
    }
-
 
 }

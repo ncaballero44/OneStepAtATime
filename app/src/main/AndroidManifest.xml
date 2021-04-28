@@ -43,6 +43,8 @@
         <activity android:name=".TherapistNotesActivity"></activity>
         <activity android:name=".TherapistNoteTakingActivity"></activity>
         <activity android:name=".TherapistShareNoteActivity"></activity>
+        <activity android:name=".TherapistSharedNotesActivity"></activity>
+        <activity android:name=".TherapistSharedNoteTakingActivity"></activity>
 
         <activity android:name=".TherapistClientListActivity"></activity>
         <activity android:name=".TherapistAddNewConnectionActivity"></activity>

@@ -58,7 +58,7 @@ public class TherapistMainActivity extends AppCompatActivity
     private void configureButtons()
     {
         this.sharedNotesButton.setOnClickListener((view)->{
-            startActivity(new Intent(TherapistMainActivity.this, TherapistWorksheetsActivity.class));
+            startActivity(new Intent(TherapistMainActivity.this, TherapistSharedNotesActivity.class));
         });
 
         this.notesAssessmentButton.setOnClickListener((view)->{
@@ -87,6 +87,8 @@ public class TherapistMainActivity extends AppCompatActivity
 
         updateClientConnectionCollectionFile();
         convertUserIdsToUsernames();
+
+        updateTherapistSharedManifestFromDatabase();
     }
 
     private void appendUsernameToTextView()
@@ -273,4 +275,43 @@ public class TherapistMainActivity extends AppCompatActivity
         }
     }
 
+    private void updateTherapistSharedManifestFromDatabase()
+    {
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+        File directory=new File(this.getFilesDir(),currentUser.getUid());
+        if(!directory.exists())
+        {
+            directory.mkdir();
+        }
+        File sharedManifestFile=new File(directory,currentUser.getUid()+"_Shared_Manifest.txt");
+        Database database=new Database();
+        DatabaseReference reference=database.therapistsReference.child(currentUser.getUid()).child("sharedNotes");
+        reference.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                String manifestFileContents="";
+                for(DataSnapshot noteTitle:snapshot.getChildren())
+                {
+                    manifestFileContents+=noteTitle.getKey()+"\n";
+                }
+                try
+                {
+                    FileWriter writer=new FileWriter(sharedManifestFile,false);
+                    writer.write(manifestFileContents);
+                    writer.flush();
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }
