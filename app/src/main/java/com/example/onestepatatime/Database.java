@@ -125,7 +125,7 @@ public class Database
         Map<String,Object> emergencyContactInformation=new HashMap<>();
         emergencyContactInformation.put("phoneNumber",newEmergencyContact.contactPhoneNumber);
         emergencyContactInformation.put("relationship",newEmergencyContact.contactRelationship);
-        
+
         clientReference.child(clientId).child("emergencyContacts").child(newEmergencyContact.contactName).setValue(emergencyContactInformation).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

@@ -89,6 +89,7 @@ public class ClientMainActivity extends AppCompatActivity
         updateTherapistConnectionCollectionFile();
         convertUserIdsToUsernames();
         updateClientSharedManifestFromDatabase();
+        updateEmergencyContactList();
     }
 
     private void appendUsernameToTextView()
@@ -300,6 +301,54 @@ public class ClientMainActivity extends AppCompatActivity
                     writer.flush();
                     writer.close();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void updateEmergencyContactList()
+    {
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+        Database database=new Database();
+
+        database.clientReference.child(currentUser.getUid()).child("emergencyContacts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                String allEmergencyContactNames="";
+                for(DataSnapshot currentEmergencyContactName:snapshot.getChildren())
+                {
+                    allEmergencyContactNames=allEmergencyContactNames+currentEmergencyContactName.getKey()+"\n";
+                }
+                String[] listOfEmergencyContactNames=allEmergencyContactNames.split("\n");
+                listOfEmergencyContactNames=new HashSet<String>(Arrays.asList(listOfEmergencyContactNames)).toArray(new String[0]);
+
+                File directory=new File(getApplicationContext().getFilesDir(),currentUser.getUid());
+                File listOfEmergencyContactsFile=new File(directory,currentUser.getUid()+"_ListOfEmergencyContacts.txt");
+
+                if(!directory.exists())
+                {
+                    directory.mkdir();
+                }
+
+                try
+                {
+                    FileWriter writer=new FileWriter(listOfEmergencyContactsFile,false);
+                    for(int i=0;i<listOfEmergencyContactNames.length;i++)
+                    {
+                        writer.write(listOfEmergencyContactNames[i]+"\n");
+                    }
+                    writer.flush();
+                    writer.close();
+                }catch (IOException e)
+                {
                     e.printStackTrace();
                 }
             }
