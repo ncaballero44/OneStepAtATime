@@ -58,8 +58,13 @@ public class ClientEmergencyContactListActivity extends AppCompatActivity
 
         emergencyContactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                String emergencyContactName=emergencyContactList.getItemAtPosition(position).toString().trim();
 
+                Intent viewEmergencyContactInfoIntent=new Intent(getApplicationContext(), EmergencyContactInfoDisplayActivity.class);
+                viewEmergencyContactInfoIntent.putExtra("CONTACT_NAME",emergencyContactName);
+                startActivity(viewEmergencyContactInfoIntent);
             }
         });
     }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TherapistInfoDisplayActivity"
+    android:background="@android:color/white"
+    android:screenOrientation="portrait">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contactNameTitle"
+        android:text="Name:"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contactName"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:textIsSelectable="true"
+        android:layout_below="@+id/contactNameTitle"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contactPhoneNumberTitle"
+        android:text="Phone Number:"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_below="@+id/contactName"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contactPhoneNumber"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:textIsSelectable="true"
+        android:layout_below="@+id/contactPhoneNumberTitle"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contactRelationshipTitle"
+        android:text="Relationship:"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_below="@+id/contactPhoneNumber"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contactRelationship"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:textIsSelectable="true"
+        android:layout_below="@+id/contactRelationshipTitle"/>
+
+</RelativeLayout>
