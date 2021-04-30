@@ -17,7 +17,7 @@
         android:inputType="text"
         android:textSize="25sp"
         android:textColor="#000000"
-        android:hint="Enter in your therapist's email here"
+        android:hint="Enter your therapist's email"
         android:textColorHighlight="#ff7eff15"
         android:textColorHint="#000000"/>
 
